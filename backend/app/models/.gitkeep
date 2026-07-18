@@ -1,0 +1,3 @@
+This folder holds the trained model checkpoint (truevision_resnet18.pth).
+See backend/train/README.md to generate it. Until then, the API runs in
+demo mode with an untrained classification head.
