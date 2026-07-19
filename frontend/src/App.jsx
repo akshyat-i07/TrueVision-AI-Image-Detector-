@@ -129,7 +129,7 @@ const GlobalStyles = () => (
 /* NAV                                                                      */
 /* ----------------------------------------------------------------------- */
 
-const NAV_LINKS = ["Home", "Features", "How It Works", "About", "Contact"];
+const NAV_LINKS = ["Home", "Features", "How It Works", "About"];
 
 function NavBar({ page, setPage }) {
   const [scrolled, setScrolled] = useState(false);
@@ -142,11 +142,22 @@ function NavBar({ page, setPage }) {
 
   if (page !== "landing") return null;
 
+  const goHome = () => {
+    setPage("landing");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className={`tv-nav fixed top-0 left-0 right-0 z-50 ${scrolled ? "tv-nav-scrolled" : ""}`}>
-      <div className="flex flex-col items-center py-5 px-4">
-        <span className="tv-display text-sm font-bold tracking-[0.25em]">TRUEVISION</span>
-        <nav className="flex flex-wrap justify-center gap-6 mt-3">
+      <div className="flex items-center justify-between py-5 px-6 md:px-10">
+        <button
+          onClick={goHome}
+          className="tv-focus tv-display text-lg font-bold tracking-[0.2em] hover:text-white/90 transition-colors"
+        >
+          TRUEVISION
+        </button>
+
+        <nav className="hidden md:flex flex-wrap justify-center gap-6">
           {NAV_LINKS.map((link) => (
             <a
               key={link}
@@ -157,6 +168,12 @@ function NavBar({ page, setPage }) {
             </a>
           ))}
         </nav>
+
+        <div className="flex items-center gap-4">
+          <a href="https://github.com/akshyat-i07" className="tv-focus tv-text-secondary hover:text-white transition-colors" aria-label="GitHub"><Github size={17} /></a>
+          <a href="https://www.linkedin.com/in/akshyat-bora-6693a0341/" className="tv-focus tv-text-secondary hover:text-white transition-colors" aria-label="LinkedIn"><Linkedin size={17} /></a>
+          <a href="mailto:akshyat.bora30@gmail.com" className="tv-focus tv-text-secondary hover:text-white transition-colors" aria-label="Email"><Mail size={17} /></a>
+        </div>
       </div>
     </div>
   );
@@ -201,7 +218,7 @@ function UploadCardMockup() {
 
 function Hero({ setPage }) {
   return (
-    <section id="home" className="pt-40 pb-28 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+    <section id="home" className="pt-32 pb-28 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
       <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: "easeOut" }}>
         <h1 className="tv-display text-4xl md:text-5xl font-extrabold leading-[1.1] tracking-tight mb-6">
           Detect AI-Generated Images with Confidence
@@ -216,9 +233,6 @@ function Hero({ setPage }) {
           >
             Analyze Image <ArrowRight size={16} />
           </button>
-          <a href="#how-it-works" className="tv-focus tv-btn-secondary rounded-2xl px-6 py-3.5 text-sm font-semibold">
-            Learn More
-          </a>
         </div>
       </motion.div>
       <motion.div
@@ -249,7 +263,7 @@ const STACK = [
 
 function BuiltWith() {
   return (
-    <section className="py-16 px-6 max-w-6xl mx-auto">
+    <section className="py-20 px-6 max-w-6xl mx-auto">
       <p className="text-center text-xs tracking-[0.2em] tv-text-secondary mb-8 font-medium">BUILT WITH</p>
       <div className="flex flex-wrap justify-center gap-4">
         {STACK.map(({ name, icon: Icon }) => (
@@ -278,7 +292,7 @@ const FEATURES = [
 
 function Features() {
   return (
-    <section id="features" className="py-24 px-6 max-w-6xl mx-auto">
+    <section id="features" className="py-28 px-6 max-w-6xl mx-auto">
       <div className="text-center mb-14">
         <h2 className="tv-display text-3xl font-bold mb-3">Features</h2>
         <p className="tv-text-secondary max-w-xl mx-auto">A focused set of capabilities, each built to make a detection result easier to trust.</p>
@@ -317,7 +331,7 @@ const STEPS = [
 
 function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-24 px-6 max-w-4xl mx-auto">
+    <section id="how-it-works" className="py-28 px-6 max-w-4xl mx-auto">
       <div className="text-center mb-16">
         <h2 className="tv-display text-3xl font-bold mb-3">How It Works</h2>
         <p className="tv-text-secondary">From upload to explanation, in three steps.</p>
@@ -364,7 +378,7 @@ const WHY = [
 
 function WhyTrueVision() {
   return (
-    <section id="about" className="py-24 px-6 max-w-6xl mx-auto">
+    <section id="about" className="py-28 px-6 max-w-6xl mx-auto">
       <div className="text-center mb-14">
         <h2 className="tv-display text-3xl font-bold mb-3">Why TrueVision</h2>
         <p className="tv-text-secondary max-w-xl mx-auto">A small set of principles guided every design decision.</p>
@@ -423,7 +437,7 @@ function FaqItem({ q, a, isOpen, onClick }) {
 function Faq() {
   const [openIndex, setOpenIndex] = useState(0);
   return (
-    <section className="py-24 px-6 max-w-3xl mx-auto">
+    <section className="py-28 pb-32 px-6 max-w-3xl mx-auto">
       <div className="text-center mb-12">
         <h2 className="tv-display text-3xl font-bold mb-3">Frequently Asked Questions</h2>
       </div>
@@ -440,28 +454,6 @@ function Faq() {
 /* FINAL CTA + FOOTER                                                       */
 /* ----------------------------------------------------------------------- */
 
-function FinalCta({ setPage }) {
-  return (
-    <section id="contact" className="py-28 px-6">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="max-w-2xl mx-auto text-center"
-      >
-        <h2 className="tv-display text-3xl md:text-4xl font-bold mb-8">Ready to Analyze an Image?</h2>
-        <button
-          onClick={() => setPage("upload")}
-          className="tv-focus tv-btn-primary rounded-2xl px-8 py-4 text-sm font-semibold inline-flex items-center gap-2"
-        >
-          Analyze Now <ArrowRight size={16} />
-        </button>
-      </motion.div>
-    </section>
-  );
-}
-
 function Footer() {
   return (
     <footer className="tv-border border-t py-10 px-6">
@@ -475,9 +467,9 @@ function Footer() {
           ))}
         </nav>
         <div className="flex items-center gap-4">
-          <a href="#" className="tv-focus tv-text-secondary hover:text-white transition-colors" aria-label="GitHub"><Github size={17} /></a>
-          <a href="#" className="tv-focus tv-text-secondary hover:text-white transition-colors" aria-label="LinkedIn"><Linkedin size={17} /></a>
-          <a href="#" className="tv-focus tv-text-secondary hover:text-white transition-colors" aria-label="Email"><Mail size={17} /></a>
+          <a href="https://github.com/akshyat-i07" className="tv-focus tv-text-secondary hover:text-white transition-colors" aria-label="GitHub"><Github size={17} /></a>
+          <a href="https://www.linkedin.com/in/akshyat-bora-6693a0341/" className="tv-focus tv-text-secondary hover:text-white transition-colors" aria-label="LinkedIn"><Linkedin size={17} /></a>
+          <a href="mailto:akshyat.bora30@gmail.com" className="tv-focus tv-text-secondary hover:text-white transition-colors" aria-label="Email"><Mail size={17} /></a>
         </div>
       </div>
       <p className="tv-text-secondary text-xs text-center mt-8">&copy; {new Date().getFullYear()} TrueVision. All rights reserved.</p>
@@ -498,7 +490,6 @@ function LandingPage({ setPage }) {
       <HowItWorks />
       <WhyTrueVision />
       <Faq />
-      <FinalCta setPage={setPage} />
       <Footer />
     </>
   );
@@ -685,14 +676,13 @@ function ImagePanel({ label, src, accentBadge }) {
 
 function ResultsPage({ image, result, onReset }) {
   const isReal = result.label === "REAL";
-  const isUncertain = result.label === "UNCERTAIN";
 
   return (
     <div className="min-h-screen flex flex-col items-center px-6 pt-24 pb-16">
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="w-full max-w-2xl">
         <h1 className="tv-display text-2xl font-bold text-center mb-2">Analysis Result</h1>
         <p className="tv-text-secondary text-sm text-center mb-8">
-          {isUncertain ? "The image is outside the model's validated input scope" : "The original image and its Grad-CAM heatmap, side by side"}
+          The original image and its Grad-CAM heatmap, side by side
         </p>
 
         {result.demoMode && (
@@ -702,38 +692,32 @@ function ResultsPage({ image, result, onReset }) {
           </div>
         )}
 
-        <div className={`grid gap-4 ${isUncertain ? "max-w-md mx-auto" : "sm:grid-cols-2"}`}>
+        <div className="grid sm:grid-cols-2 gap-4">
           <ImagePanel label="Original Image" src={image} />
-          {!isUncertain && <ImagePanel label="Grad-CAM Heatmap" src={result.heatmap} />}
+          <ImagePanel label="Grad-CAM Heatmap" src={result.heatmap || image} />
         </div>
 
         <div className="tv-card rounded-[20px] p-6 mt-6">
           <div className="flex items-center justify-between mb-5">
             <span className="tv-text-secondary text-sm">Prediction</span>
-            <span className={`text-xs font-semibold px-3 py-1.5 rounded-full flex items-center gap-1.5 ${isUncertain ? "tv-badge-warn" : isReal ? "tv-badge-real" : "tv-badge-fake"}`}>
-              {isUncertain ? <AlertTriangle size={13} /> : isReal ? <CheckCircle2 size={13} /> : <XCircle size={13} />}
-              {isUncertain ? "UNCERTAIN" : isReal ? "REAL" : "AI GENERATED"}
+            <span className={`text-xs font-semibold px-3 py-1.5 rounded-full flex items-center gap-1.5 ${isReal ? "tv-badge-real" : "tv-badge-fake"}`}>
+              {isReal ? <CheckCircle2 size={13} /> : <XCircle size={13} />}
+              {isReal ? "REAL" : "AI GENERATED"}
             </span>
           </div>
-          {isUncertain ? (
-            <p className="tv-text-secondary text-sm leading-relaxed">{result.uncertaintyReason}</p>
-          ) : (
-            <>
-              <div className="flex items-center justify-between mb-2">
-                <span className="tv-text-secondary text-sm">Confidence</span>
-                <span className="text-sm font-semibold">{result.confidence.toFixed(1)}%</span>
-              </div>
-              <div className="tv-progress-track rounded-full h-2 overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${result.confidence}%` }}
-                  transition={{ duration: 1, ease: "easeOut" }}
-                  className="h-full rounded-full"
-                  style={{ background: isReal ? "#34D399" : "var(--accent-hover)" }}
-                />
-              </div>
-            </>
-          )}
+          <div className="flex items-center justify-between mb-2">
+            <span className="tv-text-secondary text-sm">Confidence</span>
+            <span className="text-sm font-semibold">{result.confidence.toFixed(1)}%</span>
+          </div>
+          <div className="tv-progress-track rounded-full h-2 overflow-hidden">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${result.confidence}%` }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="h-full rounded-full"
+              style={{ background: isReal ? "#34D399" : "var(--accent-hover)" }}
+            />
+          </div>
         </div>
 
         <button
@@ -781,10 +765,10 @@ export default function App() {
       const data = await response.json();
 
       if (
-        !["REAL", "FAKE", "UNCERTAIN"].includes(data.label) ||
-        (data.label !== "UNCERTAIN" && (
-          !Number.isFinite(data.confidence) || data.confidence < 0 || data.confidence > 100
-        ))
+        !["REAL", "FAKE"].includes(data.label) ||
+        !Number.isFinite(data.confidence) ||
+        data.confidence < 0 ||
+        data.confidence > 100
       ) {
         throw new Error("The API returned an invalid prediction response.");
       }
@@ -800,7 +784,6 @@ export default function App() {
         label: data.label,
         confidence: data.confidence,
         heatmap: data.heatmap,
-        uncertaintyReason: data.uncertainty_reason,
         demoMode: data.demo_mode,
       });
       setPage("results");
